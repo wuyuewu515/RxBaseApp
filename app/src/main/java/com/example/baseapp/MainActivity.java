@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         activity = this;
         requestPermission();
         tvBtn.setText("你好啊");
-        tvBtn2.setText("我不好");
+        tvBtn2.setText("点击我试试");
     }
 
     private boolean requestPermission() {
