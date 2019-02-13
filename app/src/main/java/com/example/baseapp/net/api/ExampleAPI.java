@@ -3,7 +3,6 @@ package com.example.baseapp.net.api;
 
 import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.bean.UserLoginInfo;
-import com.example.baseapp.net.api.APIConstant;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;

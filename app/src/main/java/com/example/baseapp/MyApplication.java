@@ -13,6 +13,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //网络请求初始化
         NetWorkManager.getInstance().init();
     }
 }
