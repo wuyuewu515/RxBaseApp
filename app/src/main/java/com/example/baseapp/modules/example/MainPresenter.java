@@ -27,7 +27,6 @@ public class MainPresenter extends MainContact.Presenter {
 
             @Override
             public void onApiSuccess(UserLoginInfo data) {
-                Log.i("MainActivity", "getMessage===：流程成功...");
                 if (null != data) {
                     UserLoginInfo.UserInfo userInfo = data.getUserInfo();
                     Log.i("MainActivity", "userLoginInfo===" + userInfo.toString());

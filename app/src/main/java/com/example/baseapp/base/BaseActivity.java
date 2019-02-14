@@ -5,9 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.baseapp.R;
+import com.example.baseapp.utils.ToastUtil;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ public abstract class BaseActivity<P extends BasePresenter>
 
     @Override
     public void showToast(String info) {
-        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast(info);
     }
 
     /**
