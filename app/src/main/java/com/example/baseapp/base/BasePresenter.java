@@ -1,6 +1,8 @@
 package com.example.baseapp.base;
 
 
+import com.example.baseapp.net.api.ApiMethods;
+
 /**
  * Created by Administrator on 2016/9/13.
  */
@@ -9,6 +11,9 @@ public abstract class BasePresenter<V extends BaseView> {
      * 绑定的view
      */
     protected V mView;
+
+
+    protected ApiMethods apiMethods = new ApiMethods();
 
     /**
      * 绑定view，一般在初始化中调用该方法
@@ -35,8 +40,8 @@ public abstract class BasePresenter<V extends BaseView> {
     }
 
     /**
-     * presenter 和model层 绑定
+     * 预先处理的东西
      */
-    protected abstract void bindPM();
+    protected abstract void start();
 
 }

@@ -1,7 +1,7 @@
 package com.example.baseapp.modules.example;
 
 import android.Manifest;
-import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.baseapp.R;
@@ -21,13 +21,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected Integer getContentId() {
+        return R.layout.activity_main;
+    }
 
-        tvBtn.setText("你好啊");
-        tvBtn2.setText("点击我试试");
+    @Override
+    protected void initView() {
+        tvBtn.setText("啦啦啦啦");
+        tvBtn2.setText("这个是按钮");
+    }
 
+    @Override
+    protected void initData() {
         requestPermission();
     }
 
@@ -55,8 +60,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
+
     @OnClick(R.id.tv_btn2)
     public void onViewClicked() {
+        Log.i("MainActivity", "getMessage===：流程开始...");
 
         mPresenter.getLoginUserInfo();
 

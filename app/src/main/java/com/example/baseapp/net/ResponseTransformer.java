@@ -22,9 +22,8 @@ import io.reactivex.functions.Function;
 public class ResponseTransformer {
 
     public static ObservableTransformer handleResult() {
-
-        return upstream -> upstream
-                .onErrorResumeNext(new ErrorResumeFunction())
+        return upstream ->
+                upstream.onErrorResumeNext(new ErrorResumeFunction())
                 .flatMap(new ResponseFunction());
 
     }

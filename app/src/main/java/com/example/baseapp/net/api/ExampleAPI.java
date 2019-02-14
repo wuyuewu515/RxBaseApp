@@ -16,6 +16,13 @@ import retrofit2.http.POST;
  */
 public interface ExampleAPI {
 
+
+    /**
+     * @param userName   账号
+     * @param pwd        密码
+     * @param deviceCode 设备号
+     * @return
+     */
     @FormUrlEncoded
     @POST(APIConstant.LOGIN_URL)
     Observable<ResultInfo<UserLoginInfo>> login(@Field("user") String userName,

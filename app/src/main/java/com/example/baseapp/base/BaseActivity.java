@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.baseapp.R;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import butterknife.ButterKnife;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -34,10 +36,22 @@ public abstract class BaseActivity<P extends BasePresenter>
         else
             setContentView(getContentId());
 
+        ButterKnife.bind(this);
         mActivity = this;
-
+        initView();
+        initData();
+        initListener();
         bindVP();
 
+    }
+
+    protected void initView() {
+    }
+
+    protected void initData() {
+    }
+
+    protected void initListener() {
     }
 
     @Override
@@ -52,7 +66,7 @@ public abstract class BaseActivity<P extends BasePresenter>
 
     @Override
     public void showToast(String info) {
-
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
     }
 
     /**

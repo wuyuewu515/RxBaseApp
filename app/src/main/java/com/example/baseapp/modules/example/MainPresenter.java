@@ -2,12 +2,11 @@ package com.example.baseapp.modules.example;
 
 import android.util.Log;
 
+import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.bean.UserLoginInfo;
 import com.example.baseapp.exception.ApiException;
 import com.example.baseapp.net.ApiObserver;
-import com.example.baseapp.net.NetWorkManager;
-import com.example.baseapp.net.ResponseTransformer;
-import com.example.baseapp.net.SchedulerProvider;
+import com.example.baseapp.net.api.ApiMethods;
 import com.example.baseapp.utils.TelephonyUtils;
 
 /**
@@ -16,28 +15,38 @@ import com.example.baseapp.utils.TelephonyUtils;
  * @Describe:
  */
 public class MainPresenter extends MainContact.Presenter {
-    private SchedulerProvider schedulerProvider = SchedulerProvider.getInstance();
+    @Override
+    protected void start() {
+        apiMethods = new ApiMethods();
+    }
 
     @Override
     void getLoginUserInfo() {
-        NetWorkManager.getInstance().getExampleAPI().login("15601645052", "123456",
-                TelephonyUtils.getDeviceId(mView.getContext()))
-                .compose(ResponseTransformer.handleResult())
-                .compose(schedulerProvider.applySchedulers())
-                .subscribe(new ApiObserver<UserLoginInfo>() {
 
-                    @Override
-                    public void onApiSuccess(UserLoginInfo data) {
-                        Log.i("MainActivity", "getMessage===：流程成功...");
-                        Log.i("MainActivity", "data===" + data.toString());
-                    }
 
-                    @Override
-                    public void onApiError(ApiException apiException) {
-                        Log.i("MainActivity", "getMessage===：" + apiException.getDisplayMessage());
-                        Log.i("MainActivity", "getCode===：" + apiException.getCode());
-                        mView.showToast(apiException.getDisplayMessage());
-                    }
-                });
+        ApiObserver<UserLoginInfo> observer = new ApiObserver<UserLoginInfo>() {
+
+            @Override
+            public void onApiSuccess(UserLoginInfo data) {
+                Log.i("MainActivity", "getMessage===：流程成功...");
+                if (null != data) {
+                    UserLoginInfo.UserInfo userInfo = data.getUserInfo();
+                    Log.i("MainActivity", "userLoginInfo===" + userInfo.toString());
+                }
+
+            }
+
+            @Override
+            public void onApiError(ApiException apiException) {
+                Log.i("MainActivity", "getMessage===：" + apiException.getDisplayMessage());
+                Log.i("MainActivity", "getCode===：" + apiException.getCode());
+                mView.showToast(apiException.getDisplayMessage());
+            }
+        };
+
+        apiMethods.getLoginInfo(observer, "15601645052", "1234567", TelephonyUtils.getDeviceId(mView.getContext()));
+
     }
+
+
 }

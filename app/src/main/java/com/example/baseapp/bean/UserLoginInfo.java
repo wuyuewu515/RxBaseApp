@@ -4,8 +4,6 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
-import okhttp3.Response;
-
 /**
  * @author: Five_伍
  * @create: 2019/2/12
@@ -57,7 +55,7 @@ public class UserLoginInfo implements Serializable {
                 '}';
     }
 
-    class UserInfo implements Serializable {
+    public class UserInfo implements Serializable {
 //             "userid": 93,
 //            "_name": "五月五",
 //            "username": "15601645052",
