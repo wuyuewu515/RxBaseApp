@@ -2,6 +2,7 @@ package com.example.baseapp.net.api;
 
 import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.bean.UserLoginInfo;
+import com.example.baseapp.net.ApiObserver;
 import com.example.baseapp.net.NetWorkManager;
 
 import io.reactivex.Observable;
@@ -16,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ApiMethods {
     //网络访问类
-    protected NetWorkManager netWorkManager = NetWorkManager.getInstance();
+    private NetWorkManager netWorkManager = NetWorkManager.getInstance();
 
     /**
      * 封装线程管理和订阅的过程
@@ -27,6 +28,7 @@ public class ApiMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
 
     /**
      * 获取用户登录信息

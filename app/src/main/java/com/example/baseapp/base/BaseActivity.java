@@ -117,6 +117,8 @@ public abstract class BaseActivity<P extends BasePresenter>
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //释放资源
         mPresenter.detachView();
+        mPresenter.cancleRequest(this);
     }
 }

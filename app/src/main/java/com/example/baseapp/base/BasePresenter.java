@@ -1,7 +1,9 @@
 package com.example.baseapp.base;
 
 
+import com.example.baseapp.net.ApiObserver;
 import com.example.baseapp.net.api.ApiMethods;
+import com.example.baseapp.net.api.RxApiManager;
 
 /**
  * Created by Administrator on 2016/9/13.
@@ -13,7 +15,8 @@ public abstract class BasePresenter<V extends BaseView> {
     protected V mView;
 
 
-    protected ApiMethods apiMethods = new ApiMethods();
+    protected ApiMethods apiMethods;
+    private RxApiManager rxApiManager = RxApiManager.getsInstance();
 
     /**
      * 绑定view，一般在初始化中调用该方法
@@ -21,6 +24,7 @@ public abstract class BasePresenter<V extends BaseView> {
 
     public void attachView(V mvpView) {
         this.mView = mvpView;
+        start();
     }
 
     /**
@@ -40,8 +44,17 @@ public abstract class BasePresenter<V extends BaseView> {
     }
 
     /**
-     * 预先处理的东西
+     * 预先处理的东西--初始化网络工具类
      */
     protected abstract void start();
+
+    /**
+     * 取消指定的请求
+     *
+     * @param tag 请求标签
+     */
+    public void cancleRequest(Object tag) {
+        rxApiManager.cancel(tag);
+    }
 
 }

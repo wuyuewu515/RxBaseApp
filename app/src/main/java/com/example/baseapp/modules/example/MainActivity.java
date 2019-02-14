@@ -2,6 +2,7 @@ package com.example.baseapp.modules.example;
 
 import android.Manifest;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.baseapp.R;
@@ -61,11 +62,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
-    @OnClick(R.id.tv_btn2)
-    public void onViewClicked() {
-        Log.i("MainActivity", "getMessage===：流程开始...");
+    @OnClick({R.id.tv_btn2, R.id.tv_btn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_btn2:
+                Log.i("MainActivity", "getMessage===：流程开始...");
+                mPresenter.getLoginUserInfo();
 
-        mPresenter.getLoginUserInfo();
+                break;
+            case R.id.tv_btn:
+                Log.i("MainActivity", "取消的请求的是：" + this);
+                mPresenter.cancleRequest(this);
+
+                break;
+        }
 
     }
 

@@ -5,8 +5,10 @@ import android.util.Log;
 import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.exception.ApiException;
 import com.example.baseapp.exception.CustomException;
+import com.example.baseapp.net.api.RxApiManager;
 
 import io.reactivex.Observer;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
@@ -16,11 +18,16 @@ import io.reactivex.disposables.Disposable;
  * @Describe: 接口返回的数据进行封装
  */
 public abstract class ApiObserver<T> implements Observer<ResultInfo<T>> {
-    public ApiObserver() {
+    private RxApiManager rxApiManager = RxApiManager.getsInstance();
+    private Object tag;
+
+    public ApiObserver(Object tag) {
+        this.tag = tag;
     }
 
     @Override
     public void onSubscribe(Disposable d) {
+        rxApiManager.add(tag, d);
     }
 
     @Override
@@ -55,7 +62,6 @@ public abstract class ApiObserver<T> implements Observer<ResultInfo<T>> {
     public void onComplete() {
 
     }
-
 
     public abstract void onApiSuccess(T data);
 

@@ -2,7 +2,6 @@ package com.example.baseapp.modules.example;
 
 import android.util.Log;
 
-import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.bean.UserLoginInfo;
 import com.example.baseapp.exception.ApiException;
 import com.example.baseapp.net.ApiObserver;
@@ -24,7 +23,7 @@ public class MainPresenter extends MainContact.Presenter {
     void getLoginUserInfo() {
 
 
-        ApiObserver<UserLoginInfo> observer = new ApiObserver<UserLoginInfo>() {
+        ApiObserver<UserLoginInfo> observer = new ApiObserver<UserLoginInfo>(mView) {
 
             @Override
             public void onApiSuccess(UserLoginInfo data) {
