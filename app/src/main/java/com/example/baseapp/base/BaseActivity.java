@@ -2,12 +2,16 @@ package com.example.baseapp.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 
 import com.example.baseapp.R;
 import com.example.baseapp.utils.AppManager;
+import com.example.baseapp.utils.StatusBarUtil;
 import com.example.baseapp.utils.ToastUtil;
 
 import java.util.List;
@@ -45,6 +49,16 @@ public abstract class BaseActivity<P extends BasePresenter>
         initData();
         initListener();
         bindVP();
+//状态栏处理
+
+        ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        View parentView = contentFrameLayout.getChildAt(0);
+        if (parentView != null && Build.VERSION.SDK_INT >= 14) {
+            parentView.setFitsSystemWindows(true);
+        }
+
+        StatusBarUtil.transparencyBar(this);
+
 
     }
 
