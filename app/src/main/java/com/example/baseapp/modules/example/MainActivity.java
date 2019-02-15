@@ -1,7 +1,6 @@
 package com.example.baseapp.modules.example;
 
 import android.Manifest;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +10,7 @@ import com.example.baseapp.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
+
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContact.View {
 
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         String[] perms = {Manifest.permission.READ_PHONE_STATE};
 
         //判断有没有权限
-        if (EasyPermissions.hasPermissions(this, perms)) {
+        if (EasyPermissions.hasPermissions(mActivity, perms)) {
             // 如果有权限了, 就做你该做的事情
             return true;
         } else {
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             // Dialog显示的正文
             // RC_CAMERA_AND_RECORD_AUDIO 请求码, 用于回调的时候判断是哪次申请
             // perms 就是你要申请的权限
-            EasyPermissions.requestPermissions(this, "要这个权限啊", READ_PHONE_STATE, perms);
+            EasyPermissions.requestPermissions(mActivity, "要这个权限啊", READ_PHONE_STATE, perms);
             return false;
         }
     }
@@ -66,12 +66,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_btn2:
-                Log.i("MainActivity", "getMessage===：流程开始...");
                 mPresenter.getLoginUserInfo();
 
                 break;
             case R.id.tv_btn:
-                Log.i("MainActivity", "取消的请求的是：" + this);
                 mPresenter.cancleRequest(this);
 
                 break;

@@ -1,14 +1,12 @@
 package com.example.baseapp.net;
 
-import android.util.Log;
-
 import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.exception.ApiException;
 import com.example.baseapp.exception.CustomException;
 import com.example.baseapp.net.api.RxApiManager;
+import com.example.baseapp.utils.LogUtils;
 
 import io.reactivex.Observer;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
@@ -33,7 +31,8 @@ public abstract class ApiObserver<T> implements Observer<ResultInfo<T>> {
     @Override
     public void onNext(ResultInfo<T> responseBody) {
 
-        Log.i("ApiObserver", "responseBody====" + responseBody);
+        LogUtils.LOG_D(ApiObserver.class, "responseBody====" + responseBody);
+
 
         if (null == responseBody) { //服务器错误
             onApiError(new ApiException(-1, "返回数据为空"));
@@ -54,7 +53,7 @@ public abstract class ApiObserver<T> implements Observer<ResultInfo<T>> {
 
     @Override
     public void onError(Throwable e) {
-        Log.i("ApiObserver", "e====" + e.getMessage());
+        LogUtils.LOG_D(ApiObserver.class, "e====" + e.getMessage());
         onApiError(CustomException.handleException(e));
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.baseapp.R;
+import com.example.baseapp.utils.AppManager;
 import com.example.baseapp.utils.ToastUtil;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public abstract class BaseActivity<P extends BasePresenter>
 
         ButterKnife.bind(this);
         mActivity = this;
+        AppManager.addActivity(this);
+
         initView();
         initData();
         initListener();

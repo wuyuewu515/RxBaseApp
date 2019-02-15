@@ -1,7 +1,5 @@
 package com.example.baseapp.modules.example;
 
-import android.util.Log;
-
 import com.example.baseapp.bean.UserLoginInfo;
 import com.example.baseapp.exception.ApiException;
 import com.example.baseapp.net.ApiObserver;
@@ -29,20 +27,17 @@ public class MainPresenter extends MainContact.Presenter {
             public void onApiSuccess(UserLoginInfo data) {
                 if (null != data) {
                     UserLoginInfo.UserInfo userInfo = data.getUserInfo();
-                    Log.i("MainActivity", "userLoginInfo===" + userInfo.toString());
                 }
 
             }
 
             @Override
             public void onApiError(ApiException apiException) {
-                Log.i("MainActivity", "getMessage===：" + apiException.getDisplayMessage());
-                Log.i("MainActivity", "getCode===：" + apiException.getCode());
                 mView.showToast(apiException.getDisplayMessage());
             }
         };
 
-        apiMethods.getLoginInfo(observer, "15601645052", "1234567", TelephonyUtils.getDeviceId(mView.getContext()));
+        apiMethods.getLoginInfo(observer, "15601645052", "123456", TelephonyUtils.getDeviceId(mView.getContext()));
 
     }
 

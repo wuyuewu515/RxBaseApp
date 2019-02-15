@@ -53,9 +53,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'//配合Rxjava 使用
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'//添加HttpLoggingInterceptor进行调试
 
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
 
+    // 动态权限
     // For developers using AndroidX in their applications
     implementation 'pub.devrel:easypermissions:3.0.0'
     // For developers using the Android Support Library
-  //  implementation 'pub.devrel:easypermissions:2.0.1'
+    implementation 'pub.devrel:easypermissions:2.0.1'
 }
