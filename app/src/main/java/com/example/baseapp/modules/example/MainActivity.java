@@ -1,11 +1,17 @@
 package com.example.baseapp.modules.example;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.baseapp.R;
 import com.example.baseapp.base.BaseActivity;
+import com.example.baseapp.utils.AppManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,4 +83,31 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
+    public static void inTo(Activity activity) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
+    }
+
+    private boolean isExit = false;
+
+    @Override
+    public void onBackPressed() {
+
+        Timer tExit = null;
+        if (!isExit) {
+            isExit = true; // 准备退出
+            showToast("再按一次退出应用");
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false; // 取消退出
+                }
+            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            //退出app
+            AppManager.AppExit(mActivity);
+        }
+    }
 }

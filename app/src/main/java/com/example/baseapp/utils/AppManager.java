@@ -5,6 +5,8 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 
+import com.example.baseapp.net.api.RxApiManager;
+
 import java.util.Stack;
 
 /**
@@ -118,6 +120,8 @@ public class AppManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //清除所有的网络请求
+        RxApiManager.getsInstance().cancelAll();
     }
 
     public static void removeActivity(Activity activity) {

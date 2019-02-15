@@ -11,10 +11,15 @@ public interface BaseView {
     /**
      * 获取上下文
      *
-     * @return
+     * @return activity
      */
     Context getContext();
 
+    /**
+     * 展示信息
+     *
+     * @param info 信息
+     */
     void showToast(String info);
 }
 

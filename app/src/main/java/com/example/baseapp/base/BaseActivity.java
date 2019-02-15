@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -31,6 +32,8 @@ public abstract class BaseActivity<P extends BasePresenter>
         extends AppCompatActivity implements BaseView, EasyPermissions.PermissionCallbacks {
     protected Activity mActivity;
     protected P mPresenter;
+    protected Unbinder bind;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public abstract class BaseActivity<P extends BasePresenter>
         else
             setContentView(getContentId());
 
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         mActivity = this;
         AppManager.addActivity(this);
 
@@ -135,7 +138,12 @@ public abstract class BaseActivity<P extends BasePresenter>
     protected void onDestroy() {
         super.onDestroy();
         //释放资源
-        mPresenter.detachView();
-        mPresenter.cancleRequest(this);
+        if (null != bind)
+            bind.unbind();
+        if (null != mPresenter) {
+            mPresenter.detachView();
+            mPresenter.cancleRequest(this);
+            mPresenter = null;
+        }
     }
 }
