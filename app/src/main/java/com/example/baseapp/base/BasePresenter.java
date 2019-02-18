@@ -1,7 +1,6 @@
 package com.example.baseapp.base;
 
 
-import com.example.baseapp.net.ApiObserver;
 import com.example.baseapp.net.api.ApiMethods;
 import com.example.baseapp.net.api.RxApiManager;
 
@@ -13,8 +12,6 @@ public abstract class BasePresenter<V extends BaseView> {
      * 绑定的view
      */
     protected V mView;
-
-
     protected ApiMethods apiMethods;
     private RxApiManager rxApiManager = RxApiManager.getsInstance();
 
@@ -45,6 +42,7 @@ public abstract class BasePresenter<V extends BaseView> {
 
     /**
      * 预先处理的东西--初始化网络工具类
+     *   例如； apiMethods = new ApiMethods();
      */
     protected abstract void start();
 

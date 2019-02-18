@@ -35,7 +35,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         super.onCreate(savedInstanceState);
 
         mActivity = getActivity();
-
         bindVP();
     }
 

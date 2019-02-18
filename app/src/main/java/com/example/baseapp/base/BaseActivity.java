@@ -74,6 +74,7 @@ public abstract class BaseActivity<P extends BasePresenter>
     protected void initListener() {
     }
 
+
     @Override
     public Context getContext() {
         return mActivity;
@@ -81,6 +82,8 @@ public abstract class BaseActivity<P extends BasePresenter>
 
     /***
      * 绑定view层和presenter层
+     * 例如  mPresenter = new MainPresenter();
+     *         mPresenter.attachView(this);
      */
     protected abstract void bindVP();
 

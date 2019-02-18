@@ -4,7 +4,7 @@ import android.os.Handler;
 
 import com.example.baseapp.R;
 import com.example.baseapp.base.BaseActivity;
-import com.example.baseapp.modules.example.MainActivity;
+import com.example.baseapp.modules.login.LoginActiviy;
 
 /**
  * @author: Five_伍
@@ -27,8 +27,7 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                MainActivity.inTo(mActivity);
-                finish();
+                LoginActiviy.inTo(mActivity);
             }
         }, 1500);
     }

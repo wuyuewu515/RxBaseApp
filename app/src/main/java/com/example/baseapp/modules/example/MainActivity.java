@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public static void inTo(Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
         activity.startActivity(intent);
+        activity.finish();
     }
 
     private boolean isExit = false;
