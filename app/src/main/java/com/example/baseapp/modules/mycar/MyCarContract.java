@@ -1,22 +1,17 @@
-package com.example.baseapp.modules.example;
+package com.example.baseapp.modules.mycar;
 
 import com.example.baseapp.base.BasePresenter;
 import com.example.baseapp.base.BaseView;
 
 /**
  * @author: Five_伍
- * @create: 2019/2/13
- * @Describe:
+ * @create: 2019/2/19
+ * @Describe: 主页
  */
-public interface MainContact {
-
+interface MyCarContract {
     interface View extends BaseView {
     }
 
     abstract class Presenter extends BasePresenter<View> {
-        /**
-         * 获取用户的登录信息
-         */
-        abstract void getLoginUserInfo();
     }
 }

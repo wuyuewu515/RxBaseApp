@@ -1,19 +1,23 @@
-package com.example.baseapp.modules.example;
+package com.example.baseapp.modules.main;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.baseapp.R;
 import com.example.baseapp.base.BaseActivity;
+import com.example.baseapp.modules.home.HomeFragment;
+import com.example.baseapp.modules.mycar.MyCarFragment;
+import com.example.baseapp.modules.personal.PersonalFragment;
 import com.example.baseapp.utils.AppManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -21,11 +25,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContact.View {
 
     public static final int READ_PHONE_STATE = 10001;
-    @BindView(R.id.tv_btn)
-    TextView tvBtn;
-    @BindView(R.id.tv_btn2)
-    TextView tvBtn2;
 
+    int mIndex = 0;
+    private Fragment[] mFragments;
 
     @Override
     protected Integer getContentId() {
@@ -34,14 +36,54 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initView() {
-        tvBtn.setText("啦啦啦啦");
-        tvBtn2.setText("这个是按钮");
     }
+
 
     @Override
     protected void initData() {
         requestPermission();
+        //首页
+        HomeFragment homeFragment = new HomeFragment();
+        //我的车辆
+        MyCarFragment myCarFragment = new MyCarFragment();
+        //个人中心
+        PersonalFragment personalFragment = new PersonalFragment();
+        //添加到数组
+        mFragments = new Fragment[]{homeFragment, myCarFragment, personalFragment};
+        //开启事务
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //添加首页
+        ft.add(R.id.fragment_home, homeFragment).commit();
+        //默认设置为第0个
+        setIndexSelected(0);
     }
+
+    /**
+     * fragment切换
+     *
+     * @param index
+     */
+    private void setIndexSelected(int index) {
+        if (mIndex == index) {
+            return;
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        //隐藏
+        ft.hide(mFragments[mIndex]);
+        //判断是否添加
+        if (!mFragments[index].isAdded()) {
+            ft.add(R.id.fragment_home, mFragments[index]).show(mFragments[index]);
+        } else {
+            ft.hide(mFragments[mIndex]);
+            ft.show(mFragments[index]);
+        }
+        ft.commit();
+        //再次赋值
+        mIndex = index;
+
+    }
+
 
     @Override
     protected void bindVP() {
@@ -65,22 +107,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             EasyPermissions.requestPermissions(mActivity, "要这个权限啊", READ_PHONE_STATE, perms);
             return false;
         }
-    }
-
-
-    @OnClick({R.id.tv_btn2, R.id.tv_btn})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_btn2:
-                mPresenter.getLoginUserInfo();
-
-                break;
-            case R.id.tv_btn:
-                mPresenter.cancleRequest(this);
-
-                break;
-        }
-
     }
 
     public static void inTo(Activity activity) {
@@ -109,6 +135,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         } else {
             //退出app
             AppManager.AppExit(mActivity);
+        }
+    }
+
+
+    @OnClick({R.id.home, R.id.myCar, R.id.personal})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.home: //首页
+                setIndexSelected(0);
+                break;
+            case R.id.myCar: //我的车辆
+                setIndexSelected(1);
+                break;
+            case R.id.personal: //个人中心
+                setIndexSelected(2);
+                break;
         }
     }
 }

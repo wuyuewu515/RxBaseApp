@@ -52,8 +52,7 @@ public abstract class BaseActivity<P extends BasePresenter>
         initData();
         initListener();
         bindVP();
-//状态栏处理
-
+        //状态栏处理
         ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
         View parentView = contentFrameLayout.getChildAt(0);
         if (parentView != null && Build.VERSION.SDK_INT >= 14) {

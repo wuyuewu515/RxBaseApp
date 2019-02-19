@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.example.baseapp.R;
 import com.example.baseapp.base.BaseActivity;
-import com.example.baseapp.modules.example.MainActivity;
+import com.example.baseapp.modules.main.MainActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -15,7 +15,7 @@ import butterknife.OnClick;
 /**
  * @author: Five_伍
  * @create: 2019/2/15
- * @Describe:
+ * @Describe: 登录页面
  */
 public class LoginActiviy extends BaseActivity<LoginPresenter> implements LoginContract.View {
     @BindView(R.id.et_number)

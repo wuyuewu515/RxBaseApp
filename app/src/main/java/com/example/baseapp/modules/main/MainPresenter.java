@@ -1,12 +1,8 @@
-package com.example.baseapp.modules.example;
+package com.example.baseapp.modules.main;
 
 import com.example.baseapp.bean.UserInfo;
-import com.example.baseapp.bean.UserLoginInfo;
-import com.example.baseapp.exception.ApiException;
-import com.example.baseapp.net.ApiObserver;
 import com.example.baseapp.net.api.ApiMethods;
 import com.example.baseapp.utils.LogUtils;
-import com.example.baseapp.utils.TelephonyUtils;
 
 /**
  * @author: Five_伍

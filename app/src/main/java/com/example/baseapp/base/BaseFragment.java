@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.baseapp.utils.LogUtils;
 import com.example.baseapp.utils.ToastUtil;
 
 import java.util.List;
@@ -23,40 +25,104 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @create: 2019/2/15
  * @Describe: fragment的基类
  */
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView, EasyPermissions.PermissionCallbacks {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements
+        BaseView, EasyPermissions.PermissionCallbacks, View.OnTouchListener {
+    /**
+     * 贴附的activity
+     */
     protected Activity mActivity;
     protected P mPresenter;
-    protected boolean isCreate = false;
     protected Unbinder bind;
-    protected View rootView;
+
+    /**
+     * 是否对用户可见
+     */
+    private boolean mIsVisible;
+    /**
+     * 是否加载完成
+     * 当执行完oncreatview,View的初始化方法后方法后即为true
+     */
+    private boolean mIsPrepare;
+    /**
+     * 根view
+     */
+    private View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        LogUtils.LOG_D(BaseFragment.class, "onCreate---");
 
-        mActivity = getActivity();
+        super.onCreate(savedInstanceState);
         bindVP();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = getActivity();
+
+        LogUtils.LOG_D(BaseFragment.class, "onAttach---");
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogUtils.LOG_D(BaseFragment.class, "onCreateView---");
+
         return getContentId() == null ? getContentView() : inflater.inflate(getContentId(), container, false);
     }
 
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        //  super.setUserVisibleHint(isVisibleToUser);
+//        LogUtils.LOG_D(BaseFragment.class, "setUserVisibleHint---" + isVisibleToUser);
+//
+//        this.mIsVisible = isVisibleToUser;
+//        if (isVisibleToUser) {
+//            onVisibleToUser();
+//        }
+//    }
 
+    //单个activity中使用这个，setUserVisibleHint在viewpageradapter才有用
+    //   @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        LogUtils.LOG_D(BaseFragment.class, "onHiddenChanged---" + hidden);
+//
+//        this.mIsVisible = !hidden;
+//        if (!hidden) {
+//            onVisibleToUser();
+//        }
+//    }
+
+    /**
+     * 用户可见时执行的操作
+     */
+//    protected void onVisibleToUser() {
+//        if (mIsPrepare && mIsVisible) {
+//            //懒加载，当页面可见时才进行操作
+//            initData();
+//        }
+//    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        LogUtils.LOG_D(BaseFragment.class, "onViewCreated---");
         super.onViewCreated(view, savedInstanceState);
         rootView = view;
-        isCreate = false;
+        mIsPrepare = true;
         bind = ButterKnife.bind(this, view);
         initView();
         initData();
         initListener();
+        // 拦截触摸事件，防止泄露下去
+        view.setOnTouchListener(this);
     }
 
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return true;
+    }
 
     @Override
     public void showToast(String info) {
@@ -79,6 +145,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     /***
      * 绑定view层和presenter层
+     * 例如  mPresenter = new MainPresenter();
+     *         mPresenter.attachView(this);
      */
     protected abstract void bindVP();
 
@@ -86,6 +154,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     }
 
     protected void initData() {
+        LogUtils.LOG_D(BaseFragment.class, "initData方法执行");
+
+
     }
 
     protected void initListener() {
