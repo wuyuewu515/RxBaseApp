@@ -27,6 +27,7 @@ public class ApiMethods {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+
     }
 
 
@@ -42,6 +43,7 @@ public class ApiMethods {
                              String userName, String pwd, String deviceId) {
         Observable observable = netWorkManager.getExampleAPI().login(userName, pwd,
                 deviceId);
+
         ApiSubscribe(observable, observer);
     }
 

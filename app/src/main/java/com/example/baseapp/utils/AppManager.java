@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 
+import com.example.baseapp.bean.UserInfo;
 import com.example.baseapp.net.api.RxApiManager;
 
 import java.util.Stack;
@@ -122,6 +123,8 @@ public class AppManager {
         }
         //清除所有的网络请求
         RxApiManager.getsInstance().cancelAll();
+        //清除用户信息
+        UserInfo.getInstance().setUserData(null);
     }
 
     public static void removeActivity(Activity activity) {

@@ -3,7 +3,8 @@ package com.example.baseapp.net.api;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.util.ArrayMap;
-import android.util.Log;
+
+import com.example.baseapp.utils.LogUtils;
 
 import java.util.Set;
 
@@ -64,7 +65,7 @@ public class RxApiManager {
             return;
         }
         if (!maps.get(tag).isDisposed()) {
-            Log.i("MainActivity", "需要取消的请求的是：" + this);
+            LogUtils.LOG_D(RxApiManager.class, "需要取消的请求的是：" + maps.get(tag));
             maps.get(tag).dispose();
             maps.remove(tag);
         }

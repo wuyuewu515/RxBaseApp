@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class NetWorkManager {
 
-    private static NetWorkManager manager;
+    private volatile static NetWorkManager manager;
     private static Retrofit retrofit;
     private static volatile ExampleAPI request = null;
     private static volatile Example2API request2 = null;

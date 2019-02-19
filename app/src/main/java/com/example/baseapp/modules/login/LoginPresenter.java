@@ -1,7 +1,5 @@
 package com.example.baseapp.modules.login;
 
-import android.util.Log;
-
 import com.example.baseapp.bean.UserInfo;
 import com.example.baseapp.bean.UserLoginInfo;
 import com.example.baseapp.exception.ApiException;

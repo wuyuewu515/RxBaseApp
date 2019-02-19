@@ -148,5 +148,6 @@ public abstract class BaseActivity<P extends BasePresenter>
             mPresenter.cancleRequest(this);
             mPresenter = null;
         }
+        AppManager.removeActivity(this);
     }
 }
