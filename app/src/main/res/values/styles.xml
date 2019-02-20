@@ -31,4 +31,14 @@
         <item name="android:textSize">@dimen/fontSize_10</item>
     </style>
 
+    <!-- titleBar -->
+    <declare-styleable name="TitleBar">
+        <attr name="leftIcon" format="reference" />
+        <attr name="rightIcon" format="reference" />
+        <attr name="rightText" format="string" />
+        <attr name="isTransparent" format="boolean" />
+        <attr name="titleMiddle" format="string" />
+    </declare-styleable>
+
+
 </resources>

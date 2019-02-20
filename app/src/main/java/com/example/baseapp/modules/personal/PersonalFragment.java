@@ -3,6 +3,9 @@ package com.example.baseapp.modules.personal;
 import com.example.baseapp.R;
 import com.example.baseapp.base.BaseFragment;
 import com.example.baseapp.utils.LogUtils;
+import com.example.baseapp.views.TitleBar;
+
+import butterknife.BindView;
 
 /**
  * @author: Five_伍
@@ -10,6 +13,9 @@ import com.example.baseapp.utils.LogUtils;
  * @Describe:
  */
 public class PersonalFragment extends BaseFragment<PersonalPresenter> implements PersonalContract.View {
+    @BindView(R.id.titleBar)
+    TitleBar titleBar;
+
     @Override
     protected void bindVP() {
         mPresenter = new PersonalPresenter();
@@ -19,6 +25,11 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> implements
     @Override
     protected Integer getContentId() {
         return R.layout.fragment_personal;
+    }
+
+    @Override
+    protected void initView() {
+        titleBar.setLeftIcon(0);
     }
 
     @Override

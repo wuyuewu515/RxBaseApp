@@ -3,6 +3,9 @@ package com.example.baseapp.modules.mycar;
 import com.example.baseapp.R;
 import com.example.baseapp.base.BaseFragment;
 import com.example.baseapp.utils.LogUtils;
+import com.example.baseapp.views.TitleBar;
+
+import butterknife.BindView;
 
 /**
  * @author: Five_伍
@@ -10,6 +13,9 @@ import com.example.baseapp.utils.LogUtils;
  * @Describe:
  */
 public class MyCarFragment extends BaseFragment<MyCarPresenter> implements MyCarContract.View {
+    @BindView(R.id.titleBar)
+    TitleBar titleBar;
+
     @Override
     protected void bindVP() {
         mPresenter = new MyCarPresenter();
@@ -21,6 +27,10 @@ public class MyCarFragment extends BaseFragment<MyCarPresenter> implements MyCar
         return R.layout.fragment_mycar;
     }
 
+    @Override
+    protected void initView() {
+        titleBar.setLeftIcon(0);
+    }
 
     @Override
     protected void initData() {
