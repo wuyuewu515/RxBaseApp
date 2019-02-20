@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+import com.android.build.gradle.internal.dsl.SigningConfig
 
 android {
     compileSdkVersion 28
@@ -17,6 +18,7 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable true
+            signingConfig getSignInfo("../config/releasesign.properties")
             buildConfigField "String", "BASE_URL", "\"http://zuojiacheapi.test.cheegu.com/\""
             buildConfigField "String", "APP_NAME", "\"基础包\""
             buildConfigField "String", "BASE_H5_URL", "\"https://www.baidu.com/\""
@@ -25,13 +27,46 @@ android {
         }
         release {
             minifyEnabled false
+            shrinkResources false
+            signingConfig getSignInfo("../config/releasesign.properties")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            buildConfigField "String", "BASE_URL", "\"http://zuojiacheapi.test.cheegu.com/\""
+            buildConfigField "String", "APP_NAME", "\"基础包\""
+            buildConfigField "String", "BASE_H5_URL", "\"https://www.baidu.com/\""
+            resValue "string", "app_name", "\"rx基础包\""
+
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        checkReleaseBuilds true
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+def getSignInfo(propFileName) {
+    def SigningConfig signingConfig = new SigningConfig("signInfo")
+    File propFile = file(propFileName)
+    if (propFile.exists()) {
+        def Properties props = new Properties()
+        props.load(new FileInputStream(propFile))
+        signingConfig.storeFile = file(props['STORE_FILE'])
+        signingConfig.storePassword = props['STORE_PASSWORD']
+        signingConfig.keyAlias = props['KEY_ALIAS']
+        signingConfig.keyPassword = props['KEY_PASSWORD']
+        println('signConfig is exits')
+    } else {
+        println('sign config is null')
+        signingConfig = null
+    }
+    return signingConfig
 }
 
 dependencies {
