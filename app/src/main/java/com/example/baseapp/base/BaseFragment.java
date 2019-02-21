@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.baseapp.R;
 import com.example.baseapp.utils.LogUtils;
 import com.example.baseapp.utils.ToastUtil;
 
@@ -161,6 +162,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected void initListener() {
     }
+
+    /**
+     * 获取空布局
+     *
+     * @return
+     */
+    protected View getEmptyView() {
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.empty_layout, null, false);
+        return view;
+    }
+
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {

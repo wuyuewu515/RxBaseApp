@@ -12,5 +12,6 @@
     <color name="color_8c8c8c">#8c8c8c</color>
     <color name="color_ededed">#EDEDED</color>
     <color name="color_33">#FF333333</color>
+    <color name="color_tran">#00000000</color>
 
 </resources>

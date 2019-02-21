@@ -3,6 +3,8 @@ package com.example.baseapp.modules.home;
 import com.example.baseapp.base.BasePresenter;
 import com.example.baseapp.base.BaseView;
 
+import java.util.List;
+
 /**
  * @author: Five_伍
  * @create: 2019/2/19
@@ -10,8 +12,13 @@ import com.example.baseapp.base.BaseView;
  */
 interface HomeContract {
     interface View extends BaseView {
+        void setAdapterData(List<String> datas);
     }
 
     abstract class Presenter extends BasePresenter<View> {
+        /**
+         *初始化数据
+         */
+        public abstract void initData();
     }
 }
