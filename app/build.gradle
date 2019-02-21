@@ -49,6 +49,20 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                def versionName = variant.mergedFlavor.versionName
+                def customName = versionName + '-' + getDate()
+                outputFileName = "baseApp-${variant.name}-$customName" + ".apk"
+            }
+    }
+}
+
+def String getDate() {
+    Date date = new Date()
+    String dates = date.format("yyyyMMdd-HH", TimeZone.getTimeZone("GMT+08:00"))
+    return dates
 }
 
 def getSignInfo(propFileName) {
