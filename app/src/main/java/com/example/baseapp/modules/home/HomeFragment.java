@@ -1,5 +1,8 @@
 package com.example.baseapp.modules.home;
 
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -160,5 +163,28 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         } else {
             adapter.setNewData(datas);
         }
+    }
+
+    @Override
+    public String getChannel() {
+        String channel = "unknown";
+        try {
+            ApplicationInfo appInfo = mActivity.getPackageManager().getApplicationInfo(mActivity.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle metaData = appInfo.metaData;
+            if (null != metaData)
+                channel = "aplication:" + metaData.getString("UMENG_CHANNEL");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            ActivityInfo actInfo = mActivity.getPackageManager().getActivityInfo(mActivity.getComponentName(), PackageManager.GET_META_DATA);
+            Bundle metaData = actInfo.metaData;
+            if (null != metaData)
+                channel = "activity:" + metaData.getString("UMENG_CHANNEL");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return channel;
     }
 }

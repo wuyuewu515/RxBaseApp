@@ -19,8 +19,9 @@ public class HomePresenter extends HomeContract.Presenter {
 
     @Override
     public void initData() {
-        for (int i = 0; i < 50; i++) {
-            datas.add(new String("当前位置" + i));
+        String channel = mView.getChannel();
+        for (int i = 0; i < 10; i++) {
+            datas.add(channel);
         }
         mView.setAdapterData(datas);
     }

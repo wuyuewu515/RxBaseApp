@@ -13,6 +13,12 @@ import java.util.List;
 interface HomeContract {
     interface View extends BaseView {
         void setAdapterData(List<String> datas);
+
+        /**
+         * 获取渠道号
+         * @return
+         */
+        String getChannel();
     }
 
     abstract class Presenter extends BasePresenter<View> {
