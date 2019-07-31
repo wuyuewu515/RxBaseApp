@@ -11,6 +11,7 @@ import android.view.Window;
 
 import com.example.baseapp.R;
 import com.example.baseapp.utils.AppManager;
+import com.example.baseapp.utils.LogUtils;
 import com.example.baseapp.utils.StatusBarUtil;
 import com.example.baseapp.utils.ToastUtil;
 
@@ -34,7 +35,6 @@ public abstract class BaseActivity<P extends BasePresenter>
     protected P mPresenter;
     protected Unbinder bind;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +49,8 @@ public abstract class BaseActivity<P extends BasePresenter>
         AppManager.addActivity(this);
 
         initView();
-        initData();
         initListener();
+        initData();
         bindVP();
         //状态栏处理
         ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
@@ -147,6 +147,20 @@ public abstract class BaseActivity<P extends BasePresenter>
             mPresenter.cancleRequest(this);
             mPresenter = null;
         }
+        LogUtils.LOG_D(BaseActivity.class, "ondestory");
         AppManager.removeActivity(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtils.LOG_D(BaseActivity.class, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LogUtils.LOG_D(BaseActivity.class, "onStop");
+
     }
 }

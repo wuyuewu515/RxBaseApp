@@ -21,5 +21,6 @@ public interface BaseView {
      * @param info 信息
      */
     void showToast(String info);
+
 }
 

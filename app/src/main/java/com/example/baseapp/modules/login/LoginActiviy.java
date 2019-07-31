@@ -74,6 +74,11 @@ public class LoginActiviy extends BaseActivity<LoginPresenter> implements LoginC
     public static void inTo(Activity activity) {
         Intent intent = new Intent(activity, LoginActiviy.class);
         activity.startActivity(intent);
-        activity.finish();
+    //    activity.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

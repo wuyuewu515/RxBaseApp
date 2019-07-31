@@ -12,7 +12,6 @@ import com.example.baseapp.utils.LogUtils;
 public class MainPresenter extends MainContact.Presenter {
     @Override
     protected void start() {
-        apiMethods = new ApiMethods();
     }
 
     @Override

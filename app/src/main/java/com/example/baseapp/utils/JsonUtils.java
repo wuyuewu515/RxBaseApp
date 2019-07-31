@@ -1,9 +1,7 @@
 package com.example.baseapp.utils;
-
 /**
  * Created by user on 2018/6/29.
  */
-
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,6 +21,93 @@ import java.util.Map;
  * Created by zhuofeng on 2015/4/8.
  */
 public class JsonUtils {
+    private static Gson gson = null;
+
+    static {
+        if (gson == null) {
+            // 只转换加上@Expose注解的成员变量。
+            gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        }
+    }
+
+    private JsonUtils() {
+    }
+
+    /**
+     * 转成json
+     *
+     * @param object
+     * @return
+     */
+    public static String toJson(Object object) {
+        String gsonString = null;
+        if (gson != null) {
+            gsonString = gson.toJson(object);
+        }
+        return gsonString;
+    }
+
+    /**
+     * 转成bean
+     *
+     * @param gsonString
+     * @param cls
+     * @return
+     */
+    public static <T> T GsonToBean(String gsonString, Class<T> cls) {
+        T t = null;
+        if (gson != null) {
+            t = gson.fromJson(gsonString, cls);
+        }
+        return t;
+    }
+
+    /**
+     * 转成list
+     *
+     * @param gsonString
+     * @param cls
+     * @return
+     */
+    public static <T> List<T> GsonToList(String gsonString, Class<T> cls) {
+        List<T> list = null;
+        if (gson != null) {
+            list = gson.fromJson(gsonString, new TypeToken<List<T>>() {
+            }.getType());
+        }
+        return list;
+    }
+
+    /**
+     * 转成list中有map的
+     *
+     * @param gsonString
+     * @return
+     */
+    public static <T> List<Map<String, T>> GsonToListMaps(String gsonString) {
+        List<Map<String, T>> list = null;
+        if (gson != null) {
+            list = gson.fromJson(gsonString,
+                    new TypeToken<List<Map<String, T>>>() {
+                    }.getType());
+        }
+        return list;
+    }
+
+    /**
+     * 转成map的
+     *
+     * @param gsonString
+     * @return
+     */
+    public static <T> Map<String, T> GsonToMaps(String gsonString) {
+        Map<String, T> map = null;
+        if (gson != null) {
+            map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
+            }.getType());
+        }
+        return map;
+    }
 
     /**
      * 通过key获取value
@@ -52,126 +137,6 @@ public class JsonUtils {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        return result;
-    }
-
-    /**
-     * 将json转化为cls对象
-     *
-     * @param jsonString   json字符串
-     * @param cls          对应的类
-     * @param defaultValue 默认值
-     * @return
-     */
-    public static <T> T json2Object(String jsonString, Class<T> cls, T defaultValue) {
-        T t = defaultValue;
-        try {
-            GsonBuilder builder = new GsonBuilder();
-            // 不转换没有 @Expose 注解的字段
-            builder.excludeFieldsWithoutExposeAnnotation();
-            Gson gson = builder.serializeNulls().create();
-            t = gson.fromJson(jsonString, cls);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return t;
-    }
-
-    /**
-     * 将json转化为cls对象，默认值为null
-     *
-     * @param jsonString json字符串
-     * @param cls        对应的类
-     * @return
-     */
-    public static <T> T json2Object(String jsonString, Class<T> cls) {
-        return json2Object(jsonString, cls, null);
-    }
-
-    /**
-     * 将json转化为list对象
-     *
-     * @param jsonString json字符串
-     * @param cls        对应的类
-     * @return
-     */
-    public static <T> List<T> json2List(String jsonString, Class<T> cls) {
-        List<T> list = new ArrayList<T>();
-        try {
-            JSONArray jsonArray = new JSONArray(jsonString);
-            int length = jsonArray.length();
-            for (int i = 0; i < length; i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                list.add(json2Object(jsonObject.toString(), cls));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    /**
-     * 将json转化为list对象(数组)
-     *
-     * @param jsonString json字符串
-     * @return
-     */
-    public static <T> List<T> json2arr(String jsonString) {
-        List<T> list = new ArrayList<T>();
-        try {
-            JSONArray jsonArray = new JSONArray(jsonString);
-            int length = jsonArray.length();
-            for (int i = 0; i < length; i++) {
-                T jsonObject = (T) jsonArray.getString(i);
-                list.add(jsonObject);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-
-    /**
-     * 将json转化为List<Map<String, Object>>
-     *
-     * @param jsonString
-     * @return
-     */
-    public static List<Map<String, Object>> listKeyMaps(String jsonString) {
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        try {
-            GsonBuilder builder = new GsonBuilder();
-            // 不转换没有 @Expose 注解的字段
-            builder.excludeFieldsWithoutExposeAnnotation();
-            Gson gson = builder.serializeNulls().create();
-            list = gson.fromJson(jsonString,
-                    new TypeToken<List<Map<String, Object>>>() {
-                    }.getType());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    /**
-     * 将对象转化为json字符串
-     *
-     * @param obj
-     * @return
-     */
-    public static String toJson(Object obj) {
-        String result;
-        try {
-            GsonBuilder builder = new GsonBuilder();
-            // 不转换没有 @Expose 注解的字段
-            builder.excludeFieldsWithoutExposeAnnotation();
-            Gson gson = builder.disableHtmlEscaping().create();
-            result = gson.toJson(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = "";
         }
         return result;
     }

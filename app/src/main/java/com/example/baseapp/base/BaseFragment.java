@@ -52,9 +52,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         LogUtils.LOG_D(BaseFragment.class, "onCreate---");
-
         super.onCreate(savedInstanceState);
         bindVP();
+
     }
 
     @Override
@@ -113,8 +113,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         mIsPrepare = true;
         bind = ButterKnife.bind(this, view);
         initView();
-        initData();
         initListener();
+        initData();
         // 拦截触摸事件，防止泄露下去
         view.setOnTouchListener(this);
     }
