@@ -7,25 +7,25 @@ package com.example.baseapp.bean;
  */
 public class ResultInfo<T> {
 
-    private String errorMsg; //提示信息
-    private int errorCode;//请求码--与后台约定的
+    private String msg; //提示信息
+    private int code;//请求码--与后台约定的
     private T data;//返回的数据信息
 
     public String getMessage() {
-        return errorMsg;
+        return msg;
     }
 
     public ResultInfo setMessage(String message) {
-        this.errorMsg = message;
+        this.msg = message;
         return this;
     }
 
     public int getCode() {
-        return errorCode;
+        return code;
     }
 
     public ResultInfo setCode(int code) {
-        this.errorCode = code;
+        this.code = code;
         return this;
     }
 
@@ -37,59 +37,5 @@ public class ResultInfo<T> {
         this.data = data;
         return this;
     }
-
-    @Override
-    public String toString() {
-        return "ResultInfo{" +
-                "message='" + errorMsg + '\'' +
-                ", code=" + errorCode +
-                ", data=" + data +
-                '}';
-    }
-
-//    class DataInfo<T> implements Serializable {
-//        @Expose
-//        private int status;
-//        @Expose
-//        private String msg;
-//        @Expose
-//        private T t;
-//
-//        public int getStatus() {
-//            return status;
-//        }
-//
-//        public DataInfo<T> setStatus(int status) {
-//            this.status = status;
-//            return this;
-//        }
-//
-//        public String getMsg() {
-//            return msg;
-//        }
-//
-//        public DataInfo<T> setMsg(String msg) {
-//            this.msg = msg;
-//            return this;
-//        }
-//
-//        public T getT() {
-//            return t;
-//        }
-//
-//        public DataInfo<T> setT(T t) {
-//            this.t = t;
-//            return this;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return "DataInfo{" +
-//                    "status=" + status +
-//                    ", msg='" + msg + '\'' +
-//                    ", t=" + t +
-//                    '}';
-//        }
-//    }
 }
 

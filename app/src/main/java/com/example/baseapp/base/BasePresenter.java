@@ -21,7 +21,7 @@ public abstract class BasePresenter<V extends BaseView> {
 
     public void attachView(V mvpView) {
         this.mView = mvpView;
-        apiMethods = new ApiMethods(mvpView);
+        apiMethods = new ApiMethods();
         start();
     }
 

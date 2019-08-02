@@ -2,16 +2,16 @@ package com.example.baseapp.net.api;
 
 import com.example.baseapp.base.BaseView;
 import com.example.baseapp.bean.BeanData;
+import com.example.baseapp.bean.ChaipiaoInfo;
 import com.example.baseapp.bean.ResultInfo;
+import com.example.baseapp.bean.WanNianInfo;
 import com.example.baseapp.net.RetrofitManager;
-
-import java.util.List;
-import java.util.Map;
-
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Five_伍
@@ -20,20 +20,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ApiMethods<V extends BaseView> {
     private WanAndroidService androidService;
-    private V mView;
+    private CaiPiaoService caiPiaoService;
 
-    public ApiMethods(V view) {
+    public ApiMethods() {
         androidService = RetrofitManager.getInstance().createApi(WanAndroidService.class);
-        this.mView = view;
-    }
-
-    /**
-     * 封装线程管理和订阅的过程
-     */
-    public void ApiSubscribe(Observable observable, Observer observer) {
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(observer);
+        caiPiaoService = RetrofitManager.getInstance().createApi(CaiPiaoService.class);
     }
 
 
@@ -46,9 +37,31 @@ public class ApiMethods<V extends BaseView> {
         androidService.getPublicAccountList(maps)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-              //  .compose(RxLifecycle.bindUntilEvent(mView.getLifeCycleSubject(), ActivityEvent.DESTROY))
                 .subscribe(observer);
-        //  ApiSubscribe(observable, observer);
     }
 
+    /**
+     * 获取最新一期的彩票
+     *
+     * @param observer
+     * @param maps
+     */
+    public void getLastNum(Observer<ResultInfo<ChaipiaoInfo>> observer, Map<String, Object> maps) {
+        caiPiaoService.getLastNum(maps)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取最新一期的彩票
+     *
+     * @param observer
+     */
+    public void getWanNian(Observer<ResultInfo<WanNianInfo>> observer, String date) {
+        caiPiaoService.getWanNian(date)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

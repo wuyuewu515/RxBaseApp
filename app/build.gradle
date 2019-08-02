@@ -19,7 +19,7 @@ android {
             shrinkResources false
             debuggable true
             signingConfig getSignInfo("../config/releasesign.properties")
-            buildConfigField "String", "BASE_URL", "\"http://wanandroid.com/\""
+            buildConfigField "String", "BASE_URL", "\"http://www.mxnzp.com/api/\""
             buildConfigField "String", "APP_NAME", "\"基础包\""
             buildConfigField "String", "BASE_H5_URL", "\"https://www.baidu.com/\""
             resValue "string", "app_name", "\"rx基础包\""

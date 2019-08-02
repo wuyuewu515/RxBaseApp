@@ -1,13 +1,11 @@
 package com.example.baseapp.net;
 
 import android.content.DialogInterface;
-
 import com.example.baseapp.bean.ResultInfo;
 import com.example.baseapp.net.api.RxApiManager;
 import com.example.baseapp.utils.AppManager;
 import com.example.baseapp.utils.LoadingDialogUtils;
 import com.example.baseapp.utils.LogUtils;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -68,11 +66,11 @@ public abstract class ApiObserver<T> implements Observer<ResultInfo<T>> {
             int code = responseBody.getCode();
 
             switch (code) {
-                case 0: //数据成功返回
+                case 1: //数据成功返回
                     onApiSuccess(responseBody.getData());
                     break;
                 default:
-                    onApiError(new NetException.ResponseException(NetException.ERROR.UNKNOWN, "自定义错误"));
+                    onApiError(new NetException.ResponseException(NetException.ERROR.UNKNOWN, "接口正常，返回码错误"));
                     break;
             }
         }

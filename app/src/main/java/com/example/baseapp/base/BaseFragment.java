@@ -7,19 +7,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.baseapp.R;
-import com.example.baseapp.utils.LogUtils;
-import com.example.baseapp.utils.ToastUtil;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.example.baseapp.R;
+import com.example.baseapp.utils.LogUtils;
+import com.example.baseapp.utils.ToastUtil;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import java.util.List;
 
 /**
  * @author: Five_伍
